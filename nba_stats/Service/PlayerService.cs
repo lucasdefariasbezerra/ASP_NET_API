@@ -8,11 +8,13 @@ using System.Web;
 
 namespace nba_stats.Service
 {
-    public class PlayerService
+    public class PlayerService : IService<PlayerDTO>
     {
         private NBAStatsEntities context = new NBAStatsEntities();
 
-        public void save(PlayerDTO dto) {
+        
+        public int save(PlayerDTO dto)
+        {
             var player = new Player()
             {
                 name = dto.name,
@@ -22,9 +24,10 @@ namespace nba_stats.Service
             };
             context.Player.Add(player);
             context.SaveChanges();
+            return 1;
         }
 
-        public List<PlayerDTO> getPlayers()
+        public List<PlayerDTO> getAll()
         {
             DbSet<Player> list = context.Player;
             return convertToDTOList(list);
@@ -92,6 +95,23 @@ namespace nba_stats.Service
             dto.number = player.number;
             dto.franchiseId = player.franchise;
             return dto;
+        }
+
+        
+
+        public int patch(PlayerDTO dto, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int put(PlayerDTO dto, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

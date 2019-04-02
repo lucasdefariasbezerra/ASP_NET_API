@@ -7,27 +7,29 @@ using System.Web;
 
 namespace nba_stats.Service
 {
-    public class FranchiseService
+    public class FranchiseService : IService<FranchiseDTO>
     {
         private NBAStatsEntities context = new NBAStatsEntities(); 
 
-        public int saveFranchise(FranchiseDTO franchiseDto) {
-            Franchise franchise = convertToFranchise(franchiseDto);
+        public int save(FranchiseDTO dto)
+        {
+            Franchise franchise = convertToFranchise(dto);
             context.Franchise.Add(franchise);
             context.SaveChanges();
             return 1;
         }
 
-        public FranchiseDTO getFranchise(int id) {
+        public FranchiseDTO getById(int id)
+        {
             Franchise franchise = context.Franchise.Find(id);
             if (franchise != null)
             {
                 return convertToDto(franchise);
             }
-            else {
+            else
+            {
                 return null;
             }
-            
         }
 
         public void updateFields(Franchise franchise, FranchiseDTO dto) {
@@ -85,7 +87,8 @@ namespace nba_stats.Service
             return 0;
         }
 
-        public List<FranchiseDTO> getFranchises() {
+        public List<FranchiseDTO> getAll()
+        {
             IQueryable<Franchise> list = context.Franchise.Where(f => f.active == 1);
             return convertToDTOList(list);
         }
@@ -126,6 +129,6 @@ namespace nba_stats.Service
 
         private bool isNotNull(String value) {
             return value != null;
-        } 
+        }
     }
 }

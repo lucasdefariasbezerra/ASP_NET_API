@@ -12,11 +12,11 @@ namespace nba_stats.Controllers
 {
     public class FranchiseController : ApiController
     {
-        private static FranchiseService service = new FranchiseService();
+        private IService<FranchiseDTO> service = ServiceFactory.GetService<FranchiseDTO>();
 
-        public List<FranchiseDTO> Get() => service.getFranchises();
+        public List<FranchiseDTO> Get() => service.getAll();
 
-        public void Post(FranchiseDTO franchiseDto) => service.saveFranchise(franchiseDto);
+        public void Post(FranchiseDTO franchiseDto) => service.save(franchiseDto);
 
         public HttpResponseMessage Patch(FranchiseDTO dto, int id) {
             int status = service.patch(dto, id);
@@ -47,7 +47,7 @@ namespace nba_stats.Controllers
 
         public HttpResponseMessage Get(int id) {
             HttpResponseMessage response;
-            FranchiseDTO franchise = service.getFranchise(id);
+            FranchiseDTO franchise = service.getById(id);
             if (franchise != null)
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, franchise);

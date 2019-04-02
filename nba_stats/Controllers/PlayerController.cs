@@ -11,14 +11,14 @@ namespace nba_stats.Controllers
 {
     public class PlayerController : ApiController
     {
-        private static PlayerService service = new PlayerService();
+        private static IService<PlayerDTO> service = ServiceFactory.GetService<PlayerDTO>();
 
         public void Post(PlayerDTO player) {
             service.save(player);
         }
 
         public List<PlayerDTO> Get() {
-            return service.getPlayers();
+            return service.getAll();
         }
 
         public HttpResponseMessage Get(int id)
