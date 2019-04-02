@@ -19,6 +19,7 @@ namespace nba_stats
         public string position { get; set; }
         public string number { get; set; }
         public int franchise { get; set; }
+        public Nullable<int> active { get; set; }
     
         public virtual Franchise Franchise1 { get; set; }
     }

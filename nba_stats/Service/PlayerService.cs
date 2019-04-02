@@ -20,7 +20,8 @@ namespace nba_stats.Service
                 name = dto.name,
                 position = dto.position,
                 number = dto.number,
-                franchise = dto.franchiseId
+                franchise = dto.franchiseId,
+                active = 1
             };
             context.Player.Add(player);
             context.SaveChanges();
@@ -101,17 +102,75 @@ namespace nba_stats.Service
 
         public int patch(PlayerDTO dto, int id)
         {
-            throw new NotImplementedException();
+            Player player = context.Player.Find(id);
+            if (player != null && franchiseExists(dto.franchiseId))
+            {
+                updateFields(player, dto);
+                context.SaveChanges();
+                return 1;
+            }
+            return 0;
         }
 
         public int put(PlayerDTO dto, int id)
         {
-            throw new NotImplementedException();
+            Player player = context.Player.Find(id);
+            if (player != null && franchiseExists(dto.franchiseId))
+            {
+                updateFields(player, dto);
+                context.SaveChanges();
+                return 1;
+            }
+            return 0;
+        }
+
+        public void updateFields(Player player, PlayerDTO dto)
+        {
+            if (isNotNull(dto.name))
+            {
+                player.name = dto.name;
+            }
+
+            if (isNotNull(dto.franchiseId)) {
+                player.franchise = dto.franchiseId;
+            }
+
+            if (isNotNull(dto.number))
+            {
+                player.number = dto.number;
+            }
+
+            if (isNotNull(dto.position))
+            {
+                player.position = dto.position;
+            }
+        }
+
+        private bool franchiseExists(int franchiseId) {
+            var exists = context.Franchise.Any(franchise => franchise.id == franchiseId);
+            return exists;
+        }
+
+        private bool isNotNull(String value)
+        {
+            return value != null;
+        }
+
+        private bool isNotNull(int value)
+        {
+            return value != 0;
         }
 
         public int delete(int id)
         {
-            throw new NotImplementedException();
+            Player player = context.Player.Find(id);
+            if (player != null && player.active == 1)
+            {
+                player.active = 0;
+                context.SaveChanges();
+                return 1;
+            }
+            return 0;
         }
     }
 }

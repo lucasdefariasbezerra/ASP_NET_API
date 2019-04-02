@@ -78,7 +78,7 @@ namespace nba_stats.Service
         public int delete(int id)
         {
             Franchise franchise = context.Franchise.Find(id);
-            if (franchise != null || franchise.active == 1)
+            if (franchise != null && franchise.active == 1)
             {
                 franchise.active = 0;
                 context.SaveChanges();
@@ -130,5 +130,6 @@ namespace nba_stats.Service
         private bool isNotNull(String value) {
             return value != null;
         }
+
     }
 }

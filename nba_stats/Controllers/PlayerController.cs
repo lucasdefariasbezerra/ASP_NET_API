@@ -35,5 +35,50 @@ namespace nba_stats.Controllers
             }
             return response;
         }
+
+        public HttpResponseMessage Patch(PlayerDTO dto, int id)
+        {
+            int status = service.patch(dto, id);
+            HttpResponseMessage response;
+            if (status == 1)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Player Updated");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Player not found");
+            }
+            return response;
+        }
+
+        public HttpResponseMessage Put(PlayerDTO dto, int id)
+        {
+            int status = service.put(dto, id);
+            HttpResponseMessage response;
+            if (status == 1)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Player Updated");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Player or Franchise not found");
+            }
+            return response;
+        }
+
+        public HttpResponseMessage Delete(int id)
+        {
+            HttpResponseMessage response;
+            int status = service.delete(id);
+            if (status == 1)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Player was deactivated");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Player non existent or already deactivated");
+            }
+            return response;
+        }
     }
 }
