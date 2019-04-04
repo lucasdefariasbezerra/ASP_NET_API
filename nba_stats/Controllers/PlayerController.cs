@@ -42,11 +42,11 @@ namespace nba_stats.Controllers
             HttpResponseMessage response;
             if (status == 1)
             {
-                response = Request.CreateResponse(HttpStatusCode.OK, "Player Updated");
+                response = Request.CreateResponse(HttpStatusCode.OK, "Player or Franchise Updated");
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Player not found");
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Player or Franchise not found");
             }
             return response;
         }

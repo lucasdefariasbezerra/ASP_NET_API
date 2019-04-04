@@ -7,11 +7,65 @@ namespace nba_stats.Models.DTO
 {
     public class FranchiseDTO
     {
-        public int id { get; set; }
-        public String name { get; set;}
-        public String state { get; set;}
-        public String city { get; set;}
-        public String ginasium { get; set;}
+        private int _id;
+        private String _name;
+        private String _state;
+        private String _city;
+        private String _ginasium;
+
+        public int id
+        {
+            get
+            {
+                return this._id;
+            }
+
+            set
+            {
+                this._id = value;
+            }
+        }
+
+
+        public String name {
+            get {
+                return this._name;
+            }
+
+            set {
+                this._name = value;
+            }
+        }
+
+        public String state {
+            get {
+                return this._state;
+            }
+
+            set {
+                this._state = value;
+            }
+        }
+
+        public String city {
+            get {
+                return this._city;
+            }
+
+            set {
+                this._city = value;
+            }
+        }
+
+        public String ginasium {
+            get {
+                return this._ginasium;
+            }
+
+            set {
+                this._ginasium = value;
+            }
+        }
         
     }
 }
